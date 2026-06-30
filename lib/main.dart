@@ -16,7 +16,7 @@ class TransporteApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => DataStore(),
       child: MaterialApp(
-        title: 'Controle de Transportes',
+        title: 'ROTA',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorSchemeSeed: const Color(0xFF0D47A1),

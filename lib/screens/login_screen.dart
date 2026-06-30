@@ -49,10 +49,10 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(Icons.local_shipping_rounded, size: 84, color: Color(0xFF0D47A1)),
+                Image.asset('assets/images/logo.png', height: 84),
                 const SizedBox(height: 12),
                 const Text(
-                  'Controle de Transportes',
+                  'ROTA',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
@@ -65,7 +65,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     prefixIcon: Icon(Icons.person_outline),
                     border: OutlineInputBorder(),
                   ),
-                  validator: (v) => (v == null || v.isEmpty) ? 'Informe o usuário' : null,
+                  validator: (v) =>
+                      (v == null || v.isEmpty) ? 'Informe o usuário' : null,
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
@@ -76,12 +77,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     prefixIcon: Icon(Icons.lock_outline),
                     border: OutlineInputBorder(),
                   ),
-                  validator: (v) => (v == null || v.isEmpty) ? 'Informe a senha' : null,
+                  validator: (v) =>
+                      (v == null || v.isEmpty) ? 'Informe a senha' : null,
                 ),
                 if (_erro)
                   const Padding(
                     padding: EdgeInsets.only(top: 12),
-                    child: Text('Usuário ou senha inválidos. Dica: senha = 1234',
+                    child: Text(
+                        'Usuário ou senha inválidos. Dica: senha = 1234',
                         style: TextStyle(color: Colors.red)),
                   ),
                 const SizedBox(height: 24),
@@ -92,8 +95,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: _carregando ? null : _entrar,
                     child: _carregando
                         ? const SizedBox(
-                            width: 22, height: 22,
-                            child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                            width: 22,
+                            height: 22,
+                            child: CircularProgressIndicator(
+                                strokeWidth: 2, color: Colors.white),
                           )
                         : const Text('Entrar'),
                   ),

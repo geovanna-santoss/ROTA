@@ -34,7 +34,8 @@ class _HomeScreenState extends State<HomeScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('Olá, ${store.usuarioLogado ?? "usuário"} 👋',
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              style:
+                  const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           const SizedBox(height: 4),
           const Text('Resumo geral da operação de transportes'),
           const SizedBox(height: 16),
@@ -45,23 +46,32 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisSpacing: 12,
             crossAxisSpacing: 12,
             children: [
-              _cardResumo(Icons.inventory_2, 'Itens em estoque', '${store.totalProdutosEstoque}'),
-              _cardResumo(Icons.local_shipping, 'Veículos', '${store.veiculos.length}'),
-              _cardResumo(Icons.badge, 'Motoristas', '${store.motoristas.length}'),
-              _cardResumo(Icons.alt_route, 'Rotas cadastradas', '${store.rotas.length}'),
+              _cardResumo(Icons.inventory_2, 'Itens em estoque',
+                  '${store.totalProdutosEstoque}'),
+              _cardResumo(
+                  Icons.local_shipping, 'Veículos', '${store.veiculos.length}'),
+              _cardResumo(
+                  Icons.badge, 'Motoristas', '${store.motoristas.length}'),
+              _cardResumo(Icons.alt_route, 'Rotas cadastradas',
+                  '${store.rotas.length}'),
             ],
           ),
           const SizedBox(height: 24),
-          const Text('Acesso rápido', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+          const Text('Acesso rápido',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
           const SizedBox(height: 8),
           Wrap(
             spacing: 12,
             runSpacing: 12,
             children: [
-              _botaoRapido(Icons.app_registration, 'Cadastros', () => setState(() => _indiceAtual = 1)),
-              _botaoRapido(Icons.alt_route, 'Rotas', () => setState(() => _indiceAtual = 2)),
-              _botaoRapido(Icons.list_alt, 'Estoque', () => setState(() => _indiceAtual = 3)),
-              _botaoRapido(Icons.bar_chart, 'Indicadores', () => setState(() => _indiceAtual = 4)),
+              _botaoRapido(Icons.app_registration, 'Cadastros',
+                  () => setState(() => _indiceAtual = 1)),
+              _botaoRapido(Icons.alt_route, 'Rotas',
+                  () => setState(() => _indiceAtual = 2)),
+              _botaoRapido(Icons.list_alt, 'Estoque',
+                  () => setState(() => _indiceAtual = 3)),
+              _botaoRapido(Icons.bar_chart, 'Indicadores',
+                  () => setState(() => _indiceAtual = 4)),
             ],
           ),
         ],
@@ -79,7 +89,9 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Icon(icone, color: const Color(0xFF0D47A1)),
             const SizedBox(height: 8),
-            Text(valor, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+            Text(valor,
+                style:
+                    const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
             Text(titulo, style: const TextStyle(color: Colors.grey)),
           ],
         ),
@@ -124,11 +136,26 @@ class _HomeScreenState extends State<HomeScreen> {
         selectedIndex: _indiceAtual,
         onDestinationSelected: (i) => setState(() => _indiceAtual = i),
         destinations: const [
-          NavigationDestination(icon: Icon(Icons.home_outlined), selectedIcon: Icon(Icons.home), label: 'Início'),
-          NavigationDestination(icon: Icon(Icons.app_registration), selectedIcon: Icon(Icons.app_registration), label: 'Cadastros'),
-          NavigationDestination(icon: Icon(Icons.alt_route_outlined), selectedIcon: Icon(Icons.alt_route), label: 'Rotas'),
-          NavigationDestination(icon: Icon(Icons.inventory_2_outlined), selectedIcon: Icon(Icons.inventory_2), label: 'Estoque'),
-          NavigationDestination(icon: Icon(Icons.bar_chart_outlined), selectedIcon: Icon(Icons.bar_chart), label: 'Indicadores'),
+          NavigationDestination(
+              icon: Icon(Icons.home_outlined),
+              selectedIcon: Icon(Icons.home),
+              label: 'Início'),
+          NavigationDestination(
+              icon: Icon(Icons.app_registration),
+              selectedIcon: Icon(Icons.app_registration),
+              label: 'Cadastros'),
+          NavigationDestination(
+              icon: Icon(Icons.alt_route_outlined),
+              selectedIcon: Icon(Icons.alt_route),
+              label: 'Rotas'),
+          NavigationDestination(
+              icon: Icon(Icons.inventory_2_outlined),
+              selectedIcon: Icon(Icons.inventory_2),
+              label: 'Estoque'),
+          NavigationDestination(
+              icon: Icon(Icons.bar_chart_outlined),
+              selectedIcon: Icon(Icons.bar_chart),
+              label: 'Indicadores'),
         ],
       ),
     );
