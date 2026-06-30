@@ -3,8 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../data/data_store.dart';
 
-/// Tela 6 - Indicadores e gráficos (funcionalidade adicional obrigatória:
-/// "Gráficos e indicadores"). Mostra status das rotas e estoque por categoria.
+// tela que mostra graficos e numeros sobre o desempenho
 class IndicadoresScreen extends StatelessWidget {
   const IndicadoresScreen({super.key});
 
@@ -12,7 +11,15 @@ class IndicadoresScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final store = context.watch<DataStore>();
     final categorias = store.produtosPorCategoria;
-    final cores = [Colors.blue, Colors.orange, Colors.green, Colors.purple, Colors.red, Colors.teal];
+    // cores usadas nos graficos
+    final cores = [
+      const Color(0xFF007A33), // verde
+      const Color(0xFF002776), // azul
+      const Color(0xFFE5B800), // amarelo
+      const Color(0xFF4CAF50), // verde claro
+      const Color(0xFF1E88E5), // azul claro
+      const Color(0xFFFFD54F), // amarelo claro
+    ];
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
@@ -21,6 +28,7 @@ class IndicadoresScreen extends StatelessWidget {
         children: [
           const Text('Status das rotas', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
           const SizedBox(height: 12),
+          // grafico de barras mostrando a situacao das rotas
           SizedBox(
             height: 220,
             child: BarChart(
@@ -48,13 +56,13 @@ class IndicadoresScreen extends StatelessWidget {
                 borderData: FlBorderData(show: false),
                 barGroups: [
                   BarChartGroupData(x: 0, barRods: [
-                    BarChartRodData(toY: store.rotasPlanejadas.toDouble(), color: Colors.blueGrey, width: 28),
+                    BarChartRodData(toY: store.rotasPlanejadas.toDouble(), color: Theme.of(context).colorScheme.secondary, width: 28),
                   ]),
                   BarChartGroupData(x: 1, barRods: [
-                    BarChartRodData(toY: store.rotasEmAndamento.toDouble(), color: Colors.orange, width: 28),
+                    BarChartRodData(toY: store.rotasEmAndamento.toDouble(), color: Theme.of(context).colorScheme.tertiary, width: 28),
                   ]),
                   BarChartGroupData(x: 2, barRods: [
-                    BarChartRodData(toY: store.rotasConcluidas.toDouble(), color: Colors.green, width: 28),
+                    BarChartRodData(toY: store.rotasConcluidas.toDouble(), color: Theme.of(context).colorScheme.primary, width: 28),
                   ]),
                 ],
               ),
@@ -63,6 +71,7 @@ class IndicadoresScreen extends StatelessWidget {
           const SizedBox(height: 32),
           const Text('Estoque por categoria', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
           const SizedBox(height: 12),
+          // grafico de pizza dividindo os produtos por tipo
           SizedBox(
             height: 240,
             child: categorias.isEmpty
@@ -84,8 +93,9 @@ class IndicadoresScreen extends StatelessWidget {
                   ),
           ),
           const SizedBox(height: 24),
+          // cartao com um resumo rapido de todos os totais
           Card(
-            color: const Color(0xFFE3EAF6),
+            color: Theme.of(context).colorScheme.secondaryContainer,
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(

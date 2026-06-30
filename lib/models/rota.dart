@@ -1,3 +1,4 @@
+// define o percurso e os envolvidos na entrega
 class Rota {
   String id;
   String origem;
@@ -6,7 +7,7 @@ class Rota {
   String veiculoId;
   String cargaId;
   DateTime dataSaida;
-  String status; // Planejada, Em andamento, Concluida
+  String status; // planejada, em andamento, concluida
 
   Rota({
     required this.id,

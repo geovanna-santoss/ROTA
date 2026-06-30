@@ -3,10 +3,11 @@ import 'package:provider/provider.dart';
 import '../data/data_store.dart';
 import '../models/motorista.dart';
 
-/// Tela de CRUD de Motoristas
+// tela para cadastrar e gerenciar motoristas
 class MotoristaCrudScreen extends StatelessWidget {
   const MotoristaCrudScreen({super.key});
 
+  // abre a janelinha para preencher os dados do motorista
   void _abrirFormulario(BuildContext context, {Motorista? motorista}) {
     final nomeCtrl = TextEditingController(text: motorista?.nome ?? '');
     final cnhCtrl = TextEditingController(text: motorista?.cnh ?? '');
@@ -32,6 +33,7 @@ class MotoristaCrudScreen extends StatelessWidget {
                 Text(motorista == null ? 'Novo Motorista' : 'Editar Motorista',
                     style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 12),
+                // campos de texto para nome, cnh e telefone
                 TextFormField(
                   controller: nomeCtrl,
                   decoration: const InputDecoration(labelText: 'Nome completo'),
@@ -46,6 +48,7 @@ class MotoristaCrudScreen extends StatelessWidget {
                   controller: telCtrl,
                   decoration: const InputDecoration(labelText: 'Telefone'),
                 ),
+                // interruptor para dizer se esta disponivel
                 SwitchListTile(
                   contentPadding: EdgeInsets.zero,
                   title: const Text('Disponível para rotas'),
@@ -53,6 +56,7 @@ class MotoristaCrudScreen extends StatelessWidget {
                   onChanged: (v) => setStateModal(() => disponivel = v),
                 ),
                 const SizedBox(height: 8),
+                // botao que salva os dados
                 ElevatedButton(
                   onPressed: () {
                     if (!formKey.currentState!.validate()) return;
@@ -91,6 +95,7 @@ class MotoristaCrudScreen extends StatelessWidget {
     final store = context.watch<DataStore>();
     return Scaffold(
       appBar: AppBar(title: const Text('Motoristas')),
+      // lista os motoristas cadastrados
       body: store.motoristas.isEmpty
           ? const Center(child: Text('Nenhum motorista cadastrado.'))
           : ListView.builder(
@@ -110,6 +115,7 @@ class MotoristaCrudScreen extends StatelessWidget {
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
+                        // botoes de editar e apagar
                         IconButton(
                           icon: const Icon(Icons.edit, color: Colors.blue),
                           onPressed: () => _abrirFormulario(context, motorista: m),

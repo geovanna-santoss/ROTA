@@ -3,12 +3,14 @@ import 'package:provider/provider.dart';
 import '../data/data_store.dart';
 import '../models/carga.dart';
 
-/// Tela de CRUD de Cargas
+// tela para cadastrar e gerenciar as cargas
 class CargaCrudScreen extends StatelessWidget {
   const CargaCrudScreen({super.key});
 
+  // opcoes de status para a carga
   static const _statusOpcoes = ['Pendente', 'Em transporte', 'Entregue'];
 
+  // abre a janelinha para preencher os dados da carga
   void _abrirFormulario(BuildContext context, {Carga? carga}) {
     final descCtrl = TextEditingController(text: carga?.descricao ?? '');
     final pesoCtrl = TextEditingController(text: carga?.pesoTotal.toString() ?? '');
@@ -35,6 +37,7 @@ class CargaCrudScreen extends StatelessWidget {
                 Text(carga == null ? 'Nova Carga' : 'Editar Carga',
                     style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 12),
+                // campos de entrada de dados
                 TextFormField(
                   controller: descCtrl,
                   decoration: const InputDecoration(labelText: 'Descrição'),
@@ -56,6 +59,7 @@ class CargaCrudScreen extends StatelessWidget {
                   keyboardType: TextInputType.number,
                   validator: (v) => (double.tryParse(v ?? '') == null) ? 'Número inválido' : null,
                 ),
+                // menu de selecao de status
                 DropdownButtonFormField<String>(
                   initialValue: status,
                   decoration: const InputDecoration(labelText: 'Status'),
@@ -65,6 +69,7 @@ class CargaCrudScreen extends StatelessWidget {
                   onChanged: (v) => setStateModal(() => status = v ?? status),
                 ),
                 const SizedBox(height: 8),
+                // salva os dados no sistema
                 ElevatedButton(
                   onPressed: () {
                     if (!formKey.currentState!.validate()) return;
@@ -100,6 +105,7 @@ class CargaCrudScreen extends StatelessWidget {
     );
   }
 
+  // define a cor do icone baseada no status
   Color _corStatus(String status) {
     switch (status) {
       case 'Em transporte':
@@ -116,6 +122,7 @@ class CargaCrudScreen extends StatelessWidget {
     final store = context.watch<DataStore>();
     return Scaffold(
       appBar: AppBar(title: const Text('Cargas')),
+      // lista as cargas ou avisa se nao houver
       body: store.cargas.isEmpty
           ? const Center(child: Text('Nenhuma carga cadastrada.'))
           : ListView.builder(
@@ -135,6 +142,7 @@ class CargaCrudScreen extends StatelessWidget {
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
+                        // botoes de edicao e exclusao
                         IconButton(
                           icon: const Icon(Icons.edit, color: Colors.blue),
                           onPressed: () => _abrirFormulario(context, carga: c),

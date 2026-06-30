@@ -3,10 +3,11 @@ import 'package:provider/provider.dart';
 import '../data/data_store.dart';
 import '../models/produto.dart';
 
-/// Tela de CRUD de Produtos (Create, Read, Update, Delete)
+// tela para cadastrar, ver, editar e excluir produtos
 class ProdutoCrudScreen extends StatelessWidget {
   const ProdutoCrudScreen({super.key});
 
+  // abre uma janelinha para preencher os dados do produto
   void _abrirFormulario(BuildContext context, {Produto? produto}) {
     final nomeCtrl = TextEditingController(text: produto?.nome ?? '');
     final qtdCtrl = TextEditingController(text: produto?.quantidade.toString() ?? '');
@@ -31,6 +32,7 @@ class ProdutoCrudScreen extends StatelessWidget {
               Text(produto == null ? 'Novo Produto' : 'Editar Produto',
                   style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               const SizedBox(height: 12),
+              // campos de texto para os dados do produto
               TextFormField(
                 controller: nomeCtrl,
                 decoration: const InputDecoration(labelText: 'Nome do produto'),
@@ -54,6 +56,7 @@ class ProdutoCrudScreen extends StatelessWidget {
                 validator: (v) => (double.tryParse(v ?? '') == null) ? 'Número inválido' : null,
               ),
               const SizedBox(height: 16),
+              // botao para salvar as informacoes
               ElevatedButton(
                 onPressed: () {
                   if (!formKey.currentState!.validate()) return;
@@ -91,6 +94,7 @@ class ProdutoCrudScreen extends StatelessWidget {
     final store = context.watch<DataStore>();
     return Scaffold(
       appBar: AppBar(title: const Text('Produtos')),
+      // mostra a lista ou um aviso se estiver vazia
       body: store.produtos.isEmpty
           ? const Center(child: Text('Nenhum produto cadastrado.'))
           : ListView.builder(
@@ -106,6 +110,7 @@ class ProdutoCrudScreen extends StatelessWidget {
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
+                        // botoes para editar e apagar
                         IconButton(
                           icon: const Icon(Icons.edit, color: Colors.blue),
                           onPressed: () => _abrirFormulario(context, produto: p),
@@ -120,6 +125,7 @@ class ProdutoCrudScreen extends StatelessWidget {
                 );
               },
             ),
+      // botao flutuante para adicionar novo
       floatingActionButton: FloatingActionButton(
         onPressed: () => _abrirFormulario(context),
         child: const Icon(Icons.add),

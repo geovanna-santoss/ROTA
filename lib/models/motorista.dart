@@ -1,3 +1,4 @@
+// dados do motorista cadastrado
 class Motorista {
   String id;
   String nome;

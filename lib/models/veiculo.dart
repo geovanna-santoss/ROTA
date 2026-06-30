@@ -1,3 +1,4 @@
+// detalhes do veiculo de transporte
 class Veiculo {
   String id;
   String placa;

@@ -4,13 +4,13 @@ import 'carga_crud_screen.dart';
 import 'motorista_crud_screen.dart';
 import 'veiculo_crud_screen.dart';
 
-/// Tela 3 - Menu de registro/cadastro (Produto / Carga / Motorista / Veículo)
-/// A partir daqui o usuário navega para cada tela de CRUD específica.
+// lista as opcoes de cadastro do sistema
 class CadastroMenuScreen extends StatelessWidget {
   const CadastroMenuScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // define quais sao os itens de cadastro disponiveis
     final itens = [
       _ItemCadastro('Produtos', 'Itens de estoque transportados', Icons.inventory_2,
           const ProdutoCrudScreen()),
@@ -22,6 +22,7 @@ class CadastroMenuScreen extends StatelessWidget {
           const VeiculoCrudScreen()),
     ];
 
+    // cria a lista visual na tela
     return ListView.separated(
       padding: const EdgeInsets.all(16),
       itemCount: itens.length,
@@ -31,12 +32,13 @@ class CadastroMenuScreen extends StatelessWidget {
         return Card(
           child: ListTile(
             leading: CircleAvatar(
-              backgroundColor: const Color(0xFF0D47A1),
+              backgroundColor: Theme.of(context).colorScheme.primary,
               child: Icon(item.icone, color: Colors.white),
             ),
             title: Text(item.titulo, style: const TextStyle(fontWeight: FontWeight.bold)),
             subtitle: Text(item.subtitulo),
             trailing: const Icon(Icons.chevron_right),
+            // abre a tela de cadastro escolhida
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => item.tela),
@@ -48,6 +50,7 @@ class CadastroMenuScreen extends StatelessWidget {
   }
 }
 
+// estrutura auxiliar para organizar os itens da lista
 class _ItemCadastro {
   final String titulo;
   final String subtitulo;

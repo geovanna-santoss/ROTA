@@ -3,13 +3,14 @@ import 'package:provider/provider.dart';
 import '../data/data_store.dart';
 import '../models/rota.dart';
 
-/// Tela 4 - Gestão de rotas de transporte (CRUD de rotas).
-/// Vincula motorista, veículo e carga para cada viagem planejada.
+// tela para organizar e planejar as rotas de entrega
 class RotaScreen extends StatelessWidget {
   const RotaScreen({super.key});
 
+  // opcoes disponiveis para o progresso da rota
   static const _statusOpcoes = ['Planejada', 'Em andamento', 'Concluida'];
 
+  // abre a janelinha para montar uma nova rota
   void _abrirFormulario(BuildContext context, {Rota? rota}) {
     final store = context.read<DataStore>();
     final origemCtrl = TextEditingController(text: rota?.origem ?? '');
@@ -21,6 +22,7 @@ class RotaScreen extends StatelessWidget {
     DateTime dataSaida = rota?.dataSaida ?? DateTime.now();
     final formKey = GlobalKey<FormState>();
 
+    // verifica se tem tudo que precisa para criar a rota
     if (store.motoristas.isEmpty || store.veiculos.isEmpty || store.cargas.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Cadastre ao menos um motorista, veículo e carga antes de criar uma rota.'),
@@ -47,6 +49,7 @@ class RotaScreen extends StatelessWidget {
                   Text(rota == null ? 'Nova Rota' : 'Editar Rota',
                       style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 12),
+                  // campos para local de partida e chegada
                   TextFormField(
                     controller: origemCtrl,
                     decoration: const InputDecoration(labelText: 'Origem'),
@@ -57,6 +60,7 @@ class RotaScreen extends StatelessWidget {
                     decoration: const InputDecoration(labelText: 'Destino'),
                     validator: (v) => (v == null || v.isEmpty) ? 'Obrigatório' : null,
                   ),
+                  // escolhe quem vai dirigir, em qual carro e qual carga
                   DropdownButtonFormField<String>(
                     initialValue: motoristaId,
                     decoration: const InputDecoration(labelText: 'Motorista'),
@@ -93,6 +97,7 @@ class RotaScreen extends StatelessWidget {
                     onChanged: (v) => setStateModal(() => status = v ?? status),
                   ),
                   const SizedBox(height: 8),
+                  // escolhe o dia da viagem
                   ListTile(
                     contentPadding: EdgeInsets.zero,
                     title: Text('Data de saída: ${dataSaida.day}/${dataSaida.month}/${dataSaida.year}'),
@@ -108,6 +113,7 @@ class RotaScreen extends StatelessWidget {
                     },
                   ),
                   const SizedBox(height: 8),
+                  // botao para concluir a criacao ou edicao
                   ElevatedButton(
                     onPressed: () {
                       if (!formKey.currentState!.validate()) return;
@@ -151,6 +157,7 @@ class RotaScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final store = context.watch<DataStore>();
 
+    // funcoes auxiliares para achar os nomes pelo id
     String nomeMotorista(String id) =>
         store.motoristas.firstWhere((m) => m.id == id, orElse: () => store.motoristas.first).nome;
     String placaVeiculo(String id) =>
@@ -159,6 +166,7 @@ class RotaScreen extends StatelessWidget {
         store.cargas.firstWhere((c) => c.id == id, orElse: () => store.cargas.first).descricao;
 
     return Scaffold(
+      // lista as rotas planejadas ou avisa se nao tiver nada
       body: store.rotas.isEmpty
           ? const Center(child: Text('Nenhuma rota cadastrada.\nToque em "+" para planejar uma nova rota.', textAlign: TextAlign.center))
           : ListView.builder(
@@ -168,7 +176,7 @@ class RotaScreen extends StatelessWidget {
                 final r = store.rotas[i];
                 return Card(
                   child: ListTile(
-                    leading: const Icon(Icons.alt_route, color: Color(0xFF0D47A1)),
+                    leading: Icon(Icons.alt_route, color: Theme.of(context).colorScheme.primary),
                     title: Text('${r.origem} → ${r.destino}'),
                     subtitle: Text(
                       'Motorista: ${nomeMotorista(r.motoristaId)}\n'
@@ -179,6 +187,7 @@ class RotaScreen extends StatelessWidget {
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
+                        // botoes para mexer ou apagar a rota
                         IconButton(
                           icon: const Icon(Icons.edit, color: Colors.blue),
                           onPressed: () => _abrirFormulario(context, rota: r),

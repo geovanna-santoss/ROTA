@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../data/data_store.dart';
 
-/// Tela 1 - Login (Autenticação de usuário - funcionalidade adicional obrigatória)
+// tela para o usuario entrar no sistema
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -17,6 +17,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _erro = false;
   bool _carregando = false;
 
+  // faz a validacao e tenta o login
   void _entrar() async {
     if (!_formKey.currentState!.validate()) return;
     setState(() {
@@ -24,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
       _erro = false;
     });
 
-    await Future.delayed(const Duration(milliseconds: 500)); // simula chamada
+    await Future.delayed(const Duration(milliseconds: 500)); // simula rede
 
     final store = context.read<DataStore>();
     final sucesso = store.login(_usuarioController.text, _senhaController.text);
@@ -56,8 +57,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
-                const Text('Gestão de rotas, frota e estoque'),
+                const Text('Gestão de Rota, Frota e Estoque'),
                 const SizedBox(height: 32),
+                // campo para o nome de usuario
                 TextFormField(
                   controller: _usuarioController,
                   decoration: const InputDecoration(
@@ -69,6 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       (v == null || v.isEmpty) ? 'Informe o usuário' : null,
                 ),
                 const SizedBox(height: 16),
+                // campo para a senha secreta
                 TextFormField(
                   controller: _senhaController,
                   obscureText: true,
@@ -88,6 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: TextStyle(color: Colors.red)),
                   ),
                 const SizedBox(height: 24),
+                // botao que aciona o login
                 SizedBox(
                   width: double.infinity,
                   height: 48,
@@ -102,6 +106,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           )
                         : const Text('Entrar'),
                   ),
+                ),
+                const SizedBox(height: 24),
+                Image.asset(
+                  'assets/images/bandeira-do-brasil.png',
+                  height: 40,
                 ),
               ],
             ),

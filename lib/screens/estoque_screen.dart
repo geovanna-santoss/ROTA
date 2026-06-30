@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../data/data_store.dart';
 
-/// Tela 5 - Planilha de estoque: visão tabular de todos os produtos,
-/// com busca e edição rápida de quantidade.
+// tela para visualizar e controlar o estoque de produtos
 class EstoqueScreen extends StatefulWidget {
   const EstoqueScreen({super.key});
 
@@ -17,12 +16,14 @@ class _EstoqueScreenState extends State<EstoqueScreen> {
   @override
   Widget build(BuildContext context) {
     final store = context.watch<DataStore>();
+    // filtra os produtos conforme o que o usuario digita na busca
     final produtos = store.produtos
         .where((p) => p.nome.toLowerCase().contains(_busca.toLowerCase()))
         .toList();
 
     return Column(
       children: [
+        // campo para pesquisar produtos pelo nome
         Padding(
           padding: const EdgeInsets.all(12),
           child: TextField(
@@ -35,12 +36,13 @@ class _EstoqueScreenState extends State<EstoqueScreen> {
             onChanged: (v) => setState(() => _busca = v),
           ),
         ),
+        // tabela com as informacoes detalhadas do estoque
         Expanded(
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: SingleChildScrollView(
               child: DataTable(
-                headingRowColor: WidgetStateProperty.all(const Color(0xFFE3EAF6)),
+                headingRowColor: WidgetStateProperty.all(Theme.of(context).colorScheme.primaryContainer),
                 columns: const [
                   DataColumn(label: Text('Produto')),
                   DataColumn(label: Text('Categoria')),
@@ -54,6 +56,7 @@ class _EstoqueScreenState extends State<EstoqueScreen> {
                     DataCell(Text(p.categoria)),
                     DataCell(Text('${p.quantidade}')),
                     DataCell(Text('${p.peso}')),
+                    // botoes para aumentar ou diminuir a quantidade rapido
                     DataCell(Row(
                       children: [
                         IconButton(
@@ -80,6 +83,7 @@ class _EstoqueScreenState extends State<EstoqueScreen> {
             ),
           ),
         ),
+        // mostra a soma total de itens guardados
         Padding(
           padding: const EdgeInsets.all(12),
           child: Text('Total em estoque: ${store.totalProdutosEstoque} unidades',

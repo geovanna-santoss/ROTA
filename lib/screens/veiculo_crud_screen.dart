@@ -3,10 +3,11 @@ import 'package:provider/provider.dart';
 import '../data/data_store.dart';
 import '../models/veiculo.dart';
 
-/// Tela de CRUD de Veículos
+// tela para cadastrar e gerenciar a frota de veiculos
 class VeiculoCrudScreen extends StatelessWidget {
   const VeiculoCrudScreen({super.key});
 
+  // abre a janelinha para preencher os dados do veiculo
   void _abrirFormulario(BuildContext context, {Veiculo? veiculo}) {
     final placaCtrl = TextEditingController(text: veiculo?.placa ?? '');
     final modeloCtrl = TextEditingController(text: veiculo?.modelo ?? '');
@@ -32,6 +33,7 @@ class VeiculoCrudScreen extends StatelessWidget {
                 Text(veiculo == null ? 'Novo Veículo' : 'Editar Veículo',
                     style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 12),
+                // campos de texto para placa, modelo e capacidade
                 TextFormField(
                   controller: placaCtrl,
                   decoration: const InputDecoration(labelText: 'Placa'),
@@ -48,6 +50,7 @@ class VeiculoCrudScreen extends StatelessWidget {
                   keyboardType: TextInputType.number,
                   validator: (v) => (double.tryParse(v ?? '') == null) ? 'Número inválido' : null,
                 ),
+                // interruptor de disponibilidade
                 SwitchListTile(
                   contentPadding: EdgeInsets.zero,
                   title: const Text('Disponível para rotas'),
@@ -55,6 +58,7 @@ class VeiculoCrudScreen extends StatelessWidget {
                   onChanged: (v) => setStateModal(() => disponivel = v),
                 ),
                 const SizedBox(height: 8),
+                // botao que salva os dados
                 ElevatedButton(
                   onPressed: () {
                     if (!formKey.currentState!.validate()) return;
@@ -93,6 +97,7 @@ class VeiculoCrudScreen extends StatelessWidget {
     final store = context.watch<DataStore>();
     return Scaffold(
       appBar: AppBar(title: const Text('Veículos')),
+      // lista os veiculos cadastrados
       body: store.veiculos.isEmpty
           ? const Center(child: Text('Nenhum veículo cadastrado.'))
           : ListView.builder(
@@ -112,6 +117,7 @@ class VeiculoCrudScreen extends StatelessWidget {
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
+                        // botoes de edicao e exclusao
                         IconButton(
                           icon: const Icon(Icons.edit, color: Colors.blue),
                           onPressed: () => _abrirFormulario(context, veiculo: v),

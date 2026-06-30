@@ -1,8 +1,9 @@
+// informaçoes sobre o produto em estoque
 class Produto {
   String id;
   String nome;
   int quantidade;
-  double peso; // kg
+  double peso; // peso unitario em kg
   String categoria;
 
   Produto({

@@ -1,10 +1,11 @@
+// representa uma carga a ser transportada
 class Carga {
   String id;
   String descricao;
   double pesoTotal;
   String origem;
   String destino;
-  String status; // Pendente, Em transporte, Entregue
+  String status; // pendente, em transporte, entregue
 
   Carga({
     required this.id,

@@ -6,8 +6,7 @@ import 'rota_screen.dart';
 import 'estoque_screen.dart';
 import 'indicadores_screen.dart';
 
-/// Tela 2 - Menu inicial com barra de ícones (BottomNavigationBar)
-/// Implementa a navegação entre as principais áreas do app.
+// tela principal com menu inferior e resumo
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -18,6 +17,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _indiceAtual = 0;
 
+  // titulos para cada aba do menu
   static const _titulos = [
     'Início',
     'Cadastros',
@@ -26,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     'Indicadores',
   ];
 
+  // conteudo da aba inicial com resumo
   Widget _telaInicio() {
     final store = context.watch<DataStore>();
     return SingleChildScrollView(
@@ -33,12 +34,13 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Olá, ${store.usuarioLogado ?? "usuário"} 👋',
+          Text('Olá, ${store.usuarioLogado ?? "usuário"}',
               style:
                   const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           const SizedBox(height: 4),
           const Text('Resumo geral da operação de transportes'),
           const SizedBox(height: 16),
+          // grade com os numeros principais
           GridView.count(
             crossAxisCount: 2,
             shrinkWrap: true,
@@ -60,6 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
           const Text('Acesso rápido',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
           const SizedBox(height: 8),
+          // botoes para navegar rapido entre as abas
           Wrap(
             spacing: 12,
             runSpacing: 12,
@@ -79,6 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  // cria um cartao visual para o resumo
   Widget _cardResumo(IconData icone, String titulo, String valor) {
     return Card(
       elevation: 1,
@@ -87,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(icone, color: const Color(0xFF0D47A1)),
+            Icon(icone, color: Theme.of(context).colorScheme.secondary),
             const SizedBox(height: 8),
             Text(valor,
                 style:
@@ -99,6 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  // cria um botao pequeno para acoes rapidas
   Widget _botaoRapido(IconData icone, String texto, VoidCallback onTap) {
     return ActionChip(
       avatar: Icon(icone, size: 18),
@@ -109,6 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // lista das telas disponiveis no menu
     final telas = [
       _telaInicio(),
       const CadastroMenuScreen(),
@@ -121,6 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text(_titulos[_indiceAtual]),
         actions: [
+          // botao para deslogar e sair
           IconButton(
             tooltip: 'Sair',
             icon: const Icon(Icons.logout),
@@ -132,6 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: telas[_indiceAtual],
+      // barra de navegacao inferior
       bottomNavigationBar: NavigationBar(
         selectedIndex: _indiceAtual,
         onDestinationSelected: (i) => setState(() => _indiceAtual = i),
