@@ -1,0 +1,8 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "/^uname -a && cat /etc/os-release \\| sed -n '1,8p'$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}
