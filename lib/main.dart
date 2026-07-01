@@ -4,16 +4,17 @@ import 'data/data_store.dart';
 import 'screens/login_screen.dart';
 import 'screens/home_screen.dart';
 
-// ponto de partida do aplicativo
+/// Ponto de entrada da aplicação Flutter.
 void main() {
   runApp(const TransporteApp());
 }
 
-// configuracao principal do app
+/// Componente raiz responsável por injetar estado e configurar rotas/tema.
 class TransporteApp extends StatelessWidget {
   const TransporteApp({super.key});
 
   @override
+  /// Monta a estrutura principal da aplicação.
   Widget build(BuildContext context) {
     // fornece os dados para todo o app
     return ChangeNotifierProvider(

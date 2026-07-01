@@ -5,12 +5,12 @@ import '../models/veiculo.dart';
 import '../models/carga.dart';
 import '../models/rota.dart';
 
-// gerencia os dados da aplicacao na memoria e avisa quando algo muda
+/// Centraliza os dados em memória da aplicação e notifica alterações de estado.
 class DataStore extends ChangeNotifier {
   // guarda o nome do usuario que entrou no app
   String? usuarioLogado;
 
-  // verifica o nome e a senha para entrar no sistema
+  /// Valida as credenciais e inicia a sessão local do usuário.
   bool login(String usuario, String senha) {
     if (usuario.trim().isNotEmpty && senha == '1234') {
       usuarioLogado = usuario;
@@ -20,7 +20,7 @@ class DataStore extends ChangeNotifier {
     return false;
   }
 
-  // limpa o usuario logado para sair do app
+  /// Encerra a sessão atual do usuário.
   void logout() {
     usuarioLogado = null;
     notifyListeners();
@@ -178,6 +178,6 @@ class DataStore extends ChangeNotifier {
   String _gerarId(String prefixo) =>
       '$prefixo${DateTime.now().microsecondsSinceEpoch}';
 
-  // funcao publica para gerar novos ids
+  /// Gera um novo ID público com prefixo por tipo de entidade.
   String novoId(String prefixo) => _gerarId(prefixo);
 }

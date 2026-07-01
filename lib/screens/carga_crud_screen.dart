@@ -3,14 +3,14 @@ import 'package:provider/provider.dart';
 import '../data/data_store.dart';
 import '../models/carga.dart';
 
-// tela para cadastrar e gerenciar as cargas
+/// Tela para cadastro e gerenciamento de cargas.
 class CargaCrudScreen extends StatelessWidget {
   const CargaCrudScreen({super.key});
 
   // opcoes de status para a carga
   static const _statusOpcoes = ['Pendente', 'Em transporte', 'Entregue'];
 
-  // abre a janelinha para preencher os dados da carga
+  /// Abre o formulário para criação ou edição de carga.
   void _abrirFormulario(BuildContext context, {Carga? carga}) {
     final descCtrl = TextEditingController(text: carga?.descricao ?? '');
     final pesoCtrl = TextEditingController(text: carga?.pesoTotal.toString() ?? '');
@@ -105,7 +105,7 @@ class CargaCrudScreen extends StatelessWidget {
     );
   }
 
-  // define a cor do icone baseada no status
+  /// Retorna a cor do status para destaque visual na lista.
   Color _corStatus(String status) {
     switch (status) {
       case 'Em transporte':
@@ -118,6 +118,7 @@ class CargaCrudScreen extends StatelessWidget {
   }
 
   @override
+  /// Renderiza a lista de cargas e as ações de manutenção.
   Widget build(BuildContext context) {
     final store = context.watch<DataStore>();
     return Scaffold(

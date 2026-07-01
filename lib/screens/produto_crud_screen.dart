@@ -3,11 +3,11 @@ import 'package:provider/provider.dart';
 import '../data/data_store.dart';
 import '../models/produto.dart';
 
-// tela para cadastrar, ver, editar e excluir produtos
+/// Tela para criar, listar, editar e excluir produtos.
 class ProdutoCrudScreen extends StatelessWidget {
   const ProdutoCrudScreen({super.key});
 
-  // abre uma janelinha para preencher os dados do produto
+  /// Abre o formulário para criação ou edição de produto.
   void _abrirFormulario(BuildContext context, {Produto? produto}) {
     final nomeCtrl = TextEditingController(text: produto?.nome ?? '');
     final qtdCtrl = TextEditingController(text: produto?.quantidade.toString() ?? '');
@@ -90,6 +90,7 @@ class ProdutoCrudScreen extends StatelessWidget {
   }
 
   @override
+  /// Monta a lista de produtos com ações de edição e exclusão.
   Widget build(BuildContext context) {
     final store = context.watch<DataStore>();
     return Scaffold(

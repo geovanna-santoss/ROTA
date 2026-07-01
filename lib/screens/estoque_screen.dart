@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../data/data_store.dart';
 
-// tela para visualizar e controlar o estoque de produtos
+/// Tela de consulta e ajuste rápido do estoque de produtos.
 class EstoqueScreen extends StatefulWidget {
   const EstoqueScreen({super.key});
 
@@ -14,6 +14,7 @@ class _EstoqueScreenState extends State<EstoqueScreen> {
   String _busca = '';
 
   @override
+  /// Renderiza busca, tabela de estoque e total consolidado.
   Widget build(BuildContext context) {
     final store = context.watch<DataStore>();
     // filtra os produtos conforme o que o usuario digita na busca

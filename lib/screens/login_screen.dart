@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../data/data_store.dart';
 
-// tela para o usuario entrar no sistema
+/// Tela de autenticação inicial do aplicativo.
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -17,7 +17,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _erro = false;
   bool _carregando = false;
 
-  // faz a validacao e tenta o login
+  /// Valida os campos e realiza a tentativa de login.
   void _entrar() async {
     if (!_formKey.currentState!.validate()) return;
     setState(() {
@@ -26,6 +26,8 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     await Future.delayed(const Duration(milliseconds: 500)); // simula rede
+
+    if (!mounted) return;
 
     final store = context.read<DataStore>();
     final sucesso = store.login(_usuarioController.text, _senhaController.text);
@@ -40,6 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   @override
+  /// Constrói o layout da tela de login.
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(

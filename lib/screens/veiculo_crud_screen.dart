@@ -3,11 +3,11 @@ import 'package:provider/provider.dart';
 import '../data/data_store.dart';
 import '../models/veiculo.dart';
 
-// tela para cadastrar e gerenciar a frota de veiculos
+/// Tela para cadastro e gerenciamento da frota de veículos.
 class VeiculoCrudScreen extends StatelessWidget {
   const VeiculoCrudScreen({super.key});
 
-  // abre a janelinha para preencher os dados do veiculo
+  /// Abre o formulário para criação ou edição de veículo.
   void _abrirFormulario(BuildContext context, {Veiculo? veiculo}) {
     final placaCtrl = TextEditingController(text: veiculo?.placa ?? '');
     final modeloCtrl = TextEditingController(text: veiculo?.modelo ?? '');
@@ -93,6 +93,7 @@ class VeiculoCrudScreen extends StatelessWidget {
   }
 
   @override
+  /// Renderiza a lista da frota com ações de manutenção.
   Widget build(BuildContext context) {
     final store = context.watch<DataStore>();
     return Scaffold(

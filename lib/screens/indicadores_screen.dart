@@ -3,11 +3,12 @@ import 'package:provider/provider.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../data/data_store.dart';
 
-// tela que mostra graficos e numeros sobre o desempenho
+/// Tela de indicadores com gráficos e resumo operacional.
 class IndicadoresScreen extends StatelessWidget {
   const IndicadoresScreen({super.key});
 
   @override
+  /// Constrói os gráficos de rotas e estoque por categoria.
   Widget build(BuildContext context) {
     final store = context.watch<DataStore>();
     final categorias = store.produtosPorCategoria;

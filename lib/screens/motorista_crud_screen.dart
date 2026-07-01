@@ -3,11 +3,11 @@ import 'package:provider/provider.dart';
 import '../data/data_store.dart';
 import '../models/motorista.dart';
 
-// tela para cadastrar e gerenciar motoristas
+/// Tela para cadastro e gerenciamento de motoristas.
 class MotoristaCrudScreen extends StatelessWidget {
   const MotoristaCrudScreen({super.key});
 
-  // abre a janelinha para preencher os dados do motorista
+  /// Abre o formulário para criação ou edição de motorista.
   void _abrirFormulario(BuildContext context, {Motorista? motorista}) {
     final nomeCtrl = TextEditingController(text: motorista?.nome ?? '');
     final cnhCtrl = TextEditingController(text: motorista?.cnh ?? '');
@@ -91,6 +91,7 @@ class MotoristaCrudScreen extends StatelessWidget {
   }
 
   @override
+  /// Renderiza a lista de motoristas e as ações disponíveis.
   Widget build(BuildContext context) {
     final store = context.watch<DataStore>();
     return Scaffold(

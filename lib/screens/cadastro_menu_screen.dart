@@ -4,11 +4,12 @@ import 'carga_crud_screen.dart';
 import 'motorista_crud_screen.dart';
 import 'veiculo_crud_screen.dart';
 
-// lista as opcoes de cadastro do sistema
+/// Exibe as opções de cadastros disponíveis no sistema.
 class CadastroMenuScreen extends StatelessWidget {
   const CadastroMenuScreen({super.key});
 
   @override
+  /// Renderiza a lista de atalhos para as telas de cadastro.
   Widget build(BuildContext context) {
     // define quais sao os itens de cadastro disponiveis
     final itens = [
@@ -50,7 +51,7 @@ class CadastroMenuScreen extends StatelessWidget {
   }
 }
 
-// estrutura auxiliar para organizar os itens da lista
+/// Estrutura auxiliar para definir cada item do menu de cadastros.
 class _ItemCadastro {
   final String titulo;
   final String subtitulo;

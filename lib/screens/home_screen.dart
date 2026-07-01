@@ -6,7 +6,7 @@ import 'rota_screen.dart';
 import 'estoque_screen.dart';
 import 'indicadores_screen.dart';
 
-// tela principal com menu inferior e resumo
+/// Tela principal com navegação por abas e resumo operacional.
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     'Indicadores',
   ];
 
-  // conteudo da aba inicial com resumo
+  /// Monta o conteúdo da aba inicial com cartões de resumo.
   Widget _telaInicio() {
     final store = context.watch<DataStore>();
     return SingleChildScrollView(
@@ -82,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // cria um cartao visual para o resumo
+  /// Cria um cartão visual para exibir métrica resumida.
   Widget _cardResumo(IconData icone, String titulo, String valor) {
     return Card(
       elevation: 1,
@@ -103,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // cria um botao pequeno para acoes rapidas
+  /// Cria um atalho para navegação rápida entre as abas.
   Widget _botaoRapido(IconData icone, String texto, VoidCallback onTap) {
     return ActionChip(
       avatar: Icon(icone, size: 18),
@@ -113,6 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
+  /// Renderiza a estrutura da tela principal e o menu inferior.
   Widget build(BuildContext context) {
     // lista das telas disponiveis no menu
     final telas = [

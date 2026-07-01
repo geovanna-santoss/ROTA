@@ -3,14 +3,14 @@ import 'package:provider/provider.dart';
 import '../data/data_store.dart';
 import '../models/rota.dart';
 
-// tela para organizar e planejar as rotas de entrega
+/// Tela de planejamento e gerenciamento de rotas de entrega.
 class RotaScreen extends StatelessWidget {
   const RotaScreen({super.key});
 
   // opcoes disponiveis para o progresso da rota
   static const _statusOpcoes = ['Planejada', 'Em andamento', 'Concluida'];
 
-  // abre a janelinha para montar uma nova rota
+  /// Abre o formulário para criar ou editar uma rota.
   void _abrirFormulario(BuildContext context, {Rota? rota}) {
     final store = context.read<DataStore>();
     final origemCtrl = TextEditingController(text: rota?.origem ?? '');
@@ -154,16 +154,25 @@ class RotaScreen extends StatelessWidget {
   }
 
   @override
+  /// Renderiza a lista de rotas e as ações de manutenção.
   Widget build(BuildContext context) {
     final store = context.watch<DataStore>();
 
     // funcoes auxiliares para achar os nomes pelo id
-    String nomeMotorista(String id) =>
-        store.motoristas.firstWhere((m) => m.id == id, orElse: () => store.motoristas.first).nome;
-    String placaVeiculo(String id) =>
-        store.veiculos.firstWhere((v) => v.id == id, orElse: () => store.veiculos.first).placa;
-    String descCarga(String id) =>
-        store.cargas.firstWhere((c) => c.id == id, orElse: () => store.cargas.first).descricao;
+    String nomeMotorista(String id) {
+      final i = store.motoristas.indexWhere((m) => m.id == id);
+      return i >= 0 ? store.motoristas[i].nome : 'Motorista não encontrado';
+    }
+
+    String placaVeiculo(String id) {
+      final i = store.veiculos.indexWhere((v) => v.id == id);
+      return i >= 0 ? store.veiculos[i].placa : 'Veículo não encontrado';
+    }
+
+    String descCarga(String id) {
+      final i = store.cargas.indexWhere((c) => c.id == id);
+      return i >= 0 ? store.cargas[i].descricao : 'Carga não encontrada';
+    }
 
     return Scaffold(
       // lista as rotas planejadas ou avisa se nao tiver nada
